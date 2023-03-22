@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class FecharChamado extends Model
 {
+    protected $guarded = ['id'];  
+    protected $table = 'fecharChamado';
+
     use HasFactory;
 }

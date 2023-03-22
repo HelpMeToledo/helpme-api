@@ -13,7 +13,23 @@ class ChamadoController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            $obj = new Chamado();
+            $chamados = $obj->all();
+
+            return [
+                "status" => true,
+                'data' => $chamados
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -29,7 +45,24 @@ class ChamadoController extends Controller
      */
     public function store(StoreChamadoRequest $request)
     {
-        //
+        try {
+            
+            $obj = new Chamado();
+            $chamado = $obj->create($request->all());
+
+            return [
+                'status' => 1,
+                'data' => $chamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -37,7 +70,21 @@ class ChamadoController extends Controller
      */
     public function show(Chamado $chamado)
     {
-        //
+        try {
+
+            return [
+                "status" => true,
+                "data" => $chamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -53,7 +100,22 @@ class ChamadoController extends Controller
      */
     public function update(UpdateChamadoRequest $request, Chamado $chamado)
     {
-        //
+        try {
+            $chamado->update($request->all());
+
+            return [
+                "status" => true,
+                "data" => $chamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+            
+        }
     }
 
     /**
@@ -61,6 +123,22 @@ class ChamadoController extends Controller
      */
     public function destroy(Chamado $chamado)
     {
-        //
+        try {
+
+            $chamado->delete();
+
+            return [
+                "status" => true,
+                "data" => $chamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+
+        }
     }
 }

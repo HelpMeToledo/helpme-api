@@ -13,7 +13,23 @@ class FecharChamadoController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            $obj = new FecharChamado();
+            $fecharChamados = $obj->all();
+
+            return [
+                "status" => true,
+                'data' => $fecharChamados
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -29,7 +45,24 @@ class FecharChamadoController extends Controller
      */
     public function store(StoreFecharChamadoRequest $request)
     {
-        //
+        try {
+            
+            $obj = new FecharChamado();
+            $fecharChamado = $obj->create($request->all());
+
+            return [
+                "status" => true,
+                'data' => $fecharChamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -37,7 +70,21 @@ class FecharChamadoController extends Controller
      */
     public function show(FecharChamado $fecharChamado)
     {
-        //
+        try {
+
+            return [
+                "status" => true,
+                "data" => $fecharChamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -53,7 +100,22 @@ class FecharChamadoController extends Controller
      */
     public function update(UpdateFecharChamadoRequest $request, FecharChamado $fecharChamado)
     {
-        //
+        try {
+            $fecharChamado->update($request->all());
+
+            return [
+                "status" => true,
+                "data" => $fecharChamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+            
+        }
     }
 
     /**
@@ -61,6 +123,22 @@ class FecharChamadoController extends Controller
      */
     public function destroy(FecharChamado $fecharChamado)
     {
-        //
+        try {
+
+            $fecharChamado->delete();
+
+            return [
+                "status" => true,
+                "data" => $fecharChamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+
+        }
     }
 }

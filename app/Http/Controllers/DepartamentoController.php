@@ -13,7 +13,23 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            $obj = new Departamento();
+            $departamentos = $obj->all();
+
+            return [
+                "status" => true,
+                'data' => $departamentos
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -29,7 +45,24 @@ class DepartamentoController extends Controller
      */
     public function store(StoreDepartamentoRequest $request)
     {
-        //
+        try {
+            
+            $obj = new Departamento();
+            $departamento = $obj->create($request->all());
+
+            return [
+                "status" => true,
+                'data' => $departamento
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -37,7 +70,21 @@ class DepartamentoController extends Controller
      */
     public function show(Departamento $departamento)
     {
-        //
+        try {
+
+            return [
+                "status" => true,
+                "data" => $departamento
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -53,7 +100,22 @@ class DepartamentoController extends Controller
      */
     public function update(UpdateDepartamentoRequest $request, Departamento $departamento)
     {
-        //
+        try {
+            $departamento->update($request->all());
+
+            return [
+                "status" => true,
+                "data" => $departamento
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+            
+        }
     }
 
     /**
@@ -61,6 +123,22 @@ class DepartamentoController extends Controller
      */
     public function destroy(Departamento $departamento)
     {
-        //
+        try {
+
+            $departamento->delete();
+
+            return [
+                "status" => true,
+                "data" => $departamento
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+
+        }
     }
 }

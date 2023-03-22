@@ -13,7 +13,23 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            $obj = new Usuarios();
+            $usuarios = $obj->all();
+
+            return [
+                "status" => true,
+                'data' => $usuarios
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -29,15 +45,46 @@ class UsuariosController extends Controller
      */
     public function store(StoreUsuariosRequest $request)
     {
-        //
+        try {
+            
+            $obj = new Usuarios();
+            $usuario = $obj->create($request->all());
+
+            return [
+                "status" => true,
+                'data' => $usuario
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Usuarios $usuarios)
+    public function show(Usuarios $usuario)
     {
-        //
+        try {
+
+            return [
+                "status" => true,
+                "data" => $usuario
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -51,16 +98,47 @@ class UsuariosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUsuariosRequest $request, Usuarios $usuarios)
+    public function update(UpdateUsuariosRequest $request, Usuarios $usuario)
     {
-        //
+        try {
+            $usuario->update($request->all());
+
+            return [
+                "status" => true,
+                "data" => $usuario
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+            
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuarios $usuarios)
+    public function destroy(Usuarios $usuario)
     {
-        //
+        try {
+
+            $usuario->delete();
+
+            return [
+                "status" => true,
+                "data" => $usuario
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+
+        }
     }
 }

@@ -13,7 +13,23 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            $obj = new Status();
+            $status = $obj->all();
+
+            return [
+                "status" => true,
+                'data' => $status
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "status" => 0,
+                "error" => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -29,7 +45,24 @@ class StatusController extends Controller
      */
     public function store(StoreStatusRequest $request)
     {
-        //
+        try {
+            
+            $obj = new Status();
+            $status = $obj->create($request->all());
+
+            return [
+                "status" => true,
+                'data' => $status
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => 0,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -37,7 +70,21 @@ class StatusController extends Controller
      */
     public function show(Status $status)
     {
-        //
+        try {
+
+            return [
+                "status" => 1,
+                "data" => $status
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => 0,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -53,7 +100,22 @@ class StatusController extends Controller
      */
     public function update(UpdateStatusRequest $request, Status $status)
     {
-        //
+        try {
+            $status->update($request->all());
+
+            return [
+                "status" => 1,
+                "data" => $status
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => 0,
+                "error" => $e->getMessage()
+            ];
+            
+        }
     }
 
     /**
@@ -61,6 +123,22 @@ class StatusController extends Controller
      */
     public function destroy(Status $status)
     {
-        //
+        try {
+
+            $status->delete();
+
+            return [
+                "status" => 1,
+                "data" => $status
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+
+        }
     }
 }

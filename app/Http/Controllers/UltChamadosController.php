@@ -13,7 +13,23 @@ class UltChamadosController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            $obj = new UltChamados();
+            $ultChamados = $obj->all();
+
+            return [
+                "status" => true,
+                'data' => $ultChamados
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -29,7 +45,24 @@ class UltChamadosController extends Controller
      */
     public function store(StoreUltChamadosRequest $request)
     {
-        //
+        try {
+            
+            $obj = new UltChamados();
+            $ultChamado = $obj->create($request->all());
+
+            return [
+                "status" => true,
+                'data' => $ultChamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -37,7 +70,21 @@ class UltChamadosController extends Controller
      */
     public function show(UltChamados $ultChamados)
     {
-        //
+        try {
+
+            return [
+                "status" => true,
+                "data" => $ult
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage(),
+            ];
+
+        }
     }
 
     /**
@@ -51,16 +98,47 @@ class UltChamadosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUltChamadosRequest $request, UltChamados $ultChamados)
+    public function update(UpdateUltChamadosRequest $request, UltChamados $ultChamado)
     {
-        //
+        try {
+            $ultChamado->update($request->all());
+
+            return [
+                "status" => true,
+                "data" => $ultChamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+            
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UltChamados $ultChamados)
+    public function destroy(UltChamados $ultChamado)
     {
-        //
+        try {
+
+            $ultChamado->delete();
+
+            return [
+                "status" => true,
+                "data" => $ultChamado
+            ];
+
+        } catch (Exception $e){
+
+            return [
+                "status" => false,
+                "error" => $e->getMessage()
+            ];
+
+        }
     }
 }

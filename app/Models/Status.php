@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
+    protected $guarded = ['id'];  
+    protected $table = 'status';
+
     use HasFactory;
 }

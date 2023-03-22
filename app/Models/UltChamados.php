@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UltChamados extends Model
 {
+    protected $guarded = ['id'];  
+    protected $table = 'ultChamados';
+
     use HasFactory;
 }
