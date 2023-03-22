@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UltChamados;
 use App\Http\Requests\StoreUltChamadosRequest;
 use App\Http\Requests\UpdateUltChamadosRequest;
+use Exception;
 
 class UltChamadosController extends Controller
 {
@@ -74,7 +75,7 @@ class UltChamadosController extends Controller
 
             return [
                 "status" => true,
-                "data" => $ult
+                "data" => $ultChamados
             ];
 
         } catch (Exception $e){

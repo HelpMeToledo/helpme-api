@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuarios;
 use App\Http\Requests\StoreUsuariosRequest;
 use App\Http\Requests\UpdateUsuariosRequest;
+use Exception;
 
 class UsuariosController extends Controller
 {
