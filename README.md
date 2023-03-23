@@ -7,7 +7,7 @@ O repositório "helpme-api" contém toda a estrutra de interface de comunicaçã
 Outros repositórios:
 
 - [Help Me - API](https://github.com/HelpMeToledo/helpme-api.git).
-- [Help Me - Web](https://github.com/HelpMeToledo/helpme-api.git).
-- [Help Me - Mobile](https://github.com/HelpMeToledo/helpme-api.git).
-- [Help Me - Desktop](https://github.com/HelpMeToledo/helpme-api.git).
-- [Help Me - Documentação](https://github.com/HelpMeToledo/helpme-api.git).
+- [Help Me - Web](https://github.com/HelpMeToledo/helpme-web.git).
+- [Help Me - Mobile](https://github.com/HelpMeToledo/helpme-mobile.git).
+- [Help Me - Desktop](https://github.com/HelpMeToledo/helpme-desktop.git).
+- [Help Me - Documentação](https://github.com/HelpMeToledo/helpme-documentacao.git).
