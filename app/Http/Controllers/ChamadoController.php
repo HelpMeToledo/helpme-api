@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Chamado;
 use App\Http\Requests\StoreChamadoRequest;
 use App\Http\Requests\UpdateChamadoRequest;
+use Exception;
+
 
 class ChamadoController extends Controller
 {

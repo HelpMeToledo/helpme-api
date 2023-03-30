@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\FecharChamado;
 use App\Http\Requests\StoreFecharChamadoRequest;
 use App\Http\Requests\UpdateFecharChamadoRequest;
+use Exception;
+
 
 class FecharChamadoController extends Controller
 {

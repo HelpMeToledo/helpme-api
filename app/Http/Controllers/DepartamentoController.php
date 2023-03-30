@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Departamento;
 use App\Http\Requests\StoreDepartamentoRequest;
 use App\Http\Requests\UpdateDepartamentoRequest;
+use Exception;
+
 
 class DepartamentoController extends Controller
 {
