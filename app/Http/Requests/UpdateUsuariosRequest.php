@@ -25,7 +25,7 @@ class UpdateUsuariosRequest extends FormRequest
             'cpf' => 'required|max:11',
             'email' => 'required',
             'senha' => 'required',
-            'telfone' => 'required|max:8',
+            'telefone' => 'required|max:9',
         ];
     }
 }
