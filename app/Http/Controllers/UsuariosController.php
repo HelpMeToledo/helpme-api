@@ -6,8 +6,7 @@ use App\Models\Usuarios;
 use App\Http\Requests\StoreUsuariosRequest;
 use App\Http\Requests\UpdateUsuariosRequest;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 
 
 
