@@ -11,7 +11,7 @@ class UpdateUsuariosRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateUsuariosRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'cpf' => 'required|max:11',
+            'email' => 'required',
+            'senha' => 'required',
+            'telfone' => 'required|max:8',
         ];
     }
 }
