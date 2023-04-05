@@ -7,7 +7,6 @@ use App\Http\Requests\StoreChamadoRequest;
 use App\Http\Requests\UpdateChamadoRequest;
 use Exception;
 
-
 class ChamadoController extends Controller
 {
     /**

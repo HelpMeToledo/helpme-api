@@ -7,7 +7,6 @@ use App\Http\Requests\StoreUltChamadosRequest;
 use App\Http\Requests\UpdateUltChamadosRequest;
 use Exception;
 
-
 class UltChamadosController extends Controller
 {
     /**

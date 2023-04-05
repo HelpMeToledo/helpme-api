@@ -7,7 +7,6 @@ use App\Http\Requests\StoreStatusRequest;
 use App\Http\Requests\UpdateStatusRequest;
 use Exception;
 
-
 class StatusController extends Controller
 {
     /**

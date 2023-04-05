@@ -7,7 +7,6 @@ use App\Http\Requests\StoreDepartamentoRequest;
 use App\Http\Requests\UpdateDepartamentoRequest;
 use Exception;
 
-
 class DepartamentoController extends Controller
 {
     /**

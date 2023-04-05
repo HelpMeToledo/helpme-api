@@ -21,8 +21,12 @@ class StoreUsuariosRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        return [             
+            'cpf' => 'required|max:11',
+            'email' => 'required',
+            'senha' => 'required',
+            'telefone' => 'required|max:9',
+
         ];
     }
 }

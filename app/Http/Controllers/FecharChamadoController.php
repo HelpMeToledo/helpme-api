@@ -7,7 +7,6 @@ use App\Http\Requests\StoreFecharChamadoRequest;
 use App\Http\Requests\UpdateFecharChamadoRequest;
 use Exception;
 
-
 class FecharChamadoController extends Controller
 {
     /**

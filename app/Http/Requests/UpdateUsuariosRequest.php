@@ -22,7 +22,10 @@ class UpdateUsuariosRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'cpf' => 'required|max:11',
+            'email' => 'required',
+            'senha' => 'required',
+            'telefone' => 'required|max:9',
         ];
     }
 }
