@@ -6,12 +6,6 @@ use App\Models\Usuarios;
 use App\Http\Requests\StoreUsuariosRequest;
 use App\Http\Requests\UpdateUsuariosRequest;
 use Exception;
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> stage
 
 class UsuariosController extends Controller
 {
