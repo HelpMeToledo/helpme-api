@@ -2,13 +2,36 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Usuarios extends Model
+class Usuarios extends Authenticatable implements JWTSubject
 {
-    protected $guarded = ['id'];  
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $guarded = ['id'];
     protected $table = 'usuario';
 
-    use HasFactory;
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->senha;
+    }
 }

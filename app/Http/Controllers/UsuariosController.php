@@ -6,6 +6,10 @@ use App\Models\Usuarios;
 use App\Http\Requests\StoreUsuariosRequest;
 use App\Http\Requests\UpdateUsuariosRequest;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UsuariosController extends Controller
 {
@@ -23,7 +27,6 @@ class UsuariosController extends Controller
                 "status" => true,
                 'data' => $usuarios
             ];
-
         } catch (Exception $e) {
 
             return [
@@ -47,7 +50,7 @@ class UsuariosController extends Controller
     public function store(StoreUsuariosRequest $request)
     {
         try {
-            
+
             $obj = new Usuarios();
             $usuario = $obj->create($request->all());
 
@@ -55,14 +58,12 @@ class UsuariosController extends Controller
                 "status" => true,
                 'data' => $usuario
             ];
-
-        } catch (Exception $e){
+        } catch (Exception $e) {
 
             return [
                 "status" => false,
                 "error" => $e->getMessage(),
             ];
-
         }
     }
 
@@ -77,14 +78,12 @@ class UsuariosController extends Controller
                 "status" => true,
                 "data" => $usuario
             ];
-
-        } catch (Exception $e){
+        } catch (Exception $e) {
 
             return [
                 "status" => false,
                 "error" => $e->getMessage(),
             ];
-
         }
     }
 
@@ -108,17 +107,15 @@ class UsuariosController extends Controller
                 "status" => true,
                 "data" => $usuario
             ];
-
-        } catch (Exception $e){
+        } catch (Exception $e) {
 
             return [
                 "status" => false,
                 "error" => $e->getMessage()
             ];
-            
         }
     }
-       
+
     /**
      * Remove the specified resource from storage.
      */
@@ -132,14 +129,37 @@ class UsuariosController extends Controller
                 "status" => true,
                 "data" => $usuario
             ];
-
-        } catch (Exception $e){
+        } catch (Exception $e) {
 
             return [
                 "status" => false,
                 "error" => $e->getMessage()
             ];
-
         }
+    }
+
+    public function login(Request $request)
+    {
+
+        $input = $request->only('email', 'senha');
+
+        $validator = Validator::make($input, [
+            'email' => 'required',
+            'senha' => 'required',
+        ]);
+
+        try {
+            // this authenticates the user details with the database and generates a token
+            if (!$token = JWTAuth::attempt($input)) {
+                return $this->sendError([], "invalid login credentials", 400);
+            }
+        } catch (JWTException $e) {
+            return $this->sendError([], $e->getMessage(), 500);
+        }
+
+        return [
+            'status' => true,
+            'token' => $token
+        ];
     }
 }

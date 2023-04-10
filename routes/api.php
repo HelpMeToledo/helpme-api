@@ -19,16 +19,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/login', [UsuariosController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('jwt.verify')->group(function() {
+
+    Route::resources([
+        'usuarios' => UsuariosController::class,
+        'ultChamados' => UltChamadosController::class,
+        'status' => StatusController::class,
+        'fecharChamado' => FecharChamadoController::class,
+        'departamento' => DepartamentoController::class,
+        'chamado' => ChamadoController::class
+    ]);
+
 });
-
-Route::resources([
-    'usuarios' => UsuariosController::class,
-    'ultChamados' => UltChamadosController::class,
-    'status' => StatusController::class,
-    'fecharChamado' => FecharChamadoController::class,
-    'departamento' => DepartamentoController::class,
-    'chamado' => ChamadoController::class
-]);
