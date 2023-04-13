@@ -170,7 +170,7 @@ class UserController extends Controller
                 $token = auth()->user()->createToken('HelpMeAPI')->accessToken;
                 return response()->json(['token' => $token], 200);
             } else {
-                return response()->json(['dados'=> $request, 'error' => 'Unauthorised'], 401);
+                return response()->json(['dados'=> $request, 'error' => 'Não autorizado'], 401);
             }
 
         } catch (Exception $e){
@@ -180,12 +180,15 @@ class UserController extends Controller
         
     }
 
-    public function logout(Request $request){
+    public function logout(){
         
-        $token = $request->user()->token();
-        $token->revoke();
-        $response = ['message' => 'You have been successfully logged out!'];
-        return response($response, 200);
+        if (auth()->check()) {
+            auth()->user()->token()->revoke();
+            return response()->json(['success' =>'logout_success'],200); 
+         } else{
+            return response()->json(['error' =>'api.something_went_wrong'], 500);
+        }
+      
     }
 
     }

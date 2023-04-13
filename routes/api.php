@@ -35,3 +35,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
 
 });
+
+Route::get('/validate-token', function () {
+    return ['data' => true];
+})->middleware('auth:api');
