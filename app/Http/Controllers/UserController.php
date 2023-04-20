@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuarios;
-use App\Http\Requests\StoreUsuariosRequest;
-use App\Http\Requests\UpdateUsuariosRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Exception;
 
-class UsuariosController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +18,12 @@ class UsuariosController extends Controller
     {
         try {
 
-            $obj = new Usuarios();
-            $usuarios = $obj->all();
+            $obj = new User();
+            $User = $obj->all();
 
             return [
                 "status" => true,
-                'data' => $usuarios
+                'data' => $User
             ];
 
         } catch (Exception $e) {
@@ -44,16 +46,24 @@ class UsuariosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUsuariosRequest $request)
+    public function store(StoreUserRequest $request)
     {
         try {
             
-            $obj = new Usuarios();
-            $usuario = $obj->create($request->all());
+            $obj = new User();
+
+            $input = $request->all();
+            $input['password'] = bcrypt($input['password']);
+
+            $user = $obj->create($input);
+
+            $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $success['name'] =  $user->name;
+
 
             return [
                 "status" => true,
-                'data' => $usuario
+                'data' => $success
             ];
 
         } catch (Exception $e){
@@ -69,7 +79,7 @@ class UsuariosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Usuarios $usuario)
+    public function show(User $usuario)
     {
         try {
 
@@ -91,7 +101,7 @@ class UsuariosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Usuarios $usuarios)
+    public function edit(User $User)
     {
         //
     }
@@ -99,7 +109,7 @@ class UsuariosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUsuariosRequest $request, Usuarios $usuario)
+    public function update(UpdateUserRequest $request, User $usuario)
     {
         try {
             $usuario->update($request->all());
@@ -122,7 +132,7 @@ class UsuariosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuarios $usuario)
+    public function destroy(User $usuario)
     {
         try {
 
@@ -141,5 +151,45 @@ class UsuariosController extends Controller
             ];
 
         }
+        
     }
-}
+
+    public function login(LoginRequest $request){
+
+        $input= $request->all();
+        
+        
+        $credenciais = [
+            "email" => $input["email"],
+            "password" => $input["password"]
+        ];
+
+        try {
+
+            if (auth()->attempt($credenciais)) {
+                $token = auth()->user()->createToken('HelpMeAPI')->accessToken;
+                return response()->json(['token' => $token], 200);
+            } else {
+                return response()->json(['dados'=> $request, 'error' => 'Não autorizado'], 401);
+            }
+
+        } catch (Exception $e){
+
+            return response()->json(['dados'=> $request, 'error' => $e->getMessage()], 404);
+        }
+        
+    }
+
+    public function logout(){
+        
+        if (auth()->check()) {
+            auth()->user()->token()->revoke();
+            return response()->json(['success' =>'logout_success'],200); 
+         } else{
+            return response()->json(['error' =>'api.something_went_wrong'], 500);
+        }
+      
+    }
+
+    }
+
