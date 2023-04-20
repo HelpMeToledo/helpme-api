@@ -24,7 +24,6 @@ Route::post('/login', [UserController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     
     Route::resources([
-        'usuarios' => UserController::class,
         'ultChamados' => UltChamadosController::class,
         'status' => StatusController::class,
         'fecharChamado' => FecharChamadoController::class,
@@ -35,6 +34,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
 
 });
+
+Route::resource('usuarios', UserController::class);
 
 Route::get('/validate-token', function () {
     return ['data' => true];
