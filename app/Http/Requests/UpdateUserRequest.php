@@ -22,7 +22,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required',
+            'name' => 'required',
             'cpf' => 'required|size:11',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:3',
@@ -33,7 +33,7 @@ class UpdateUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nome.required' => 'O campo nome é obrigatório.',
+            'name.required' => 'O campo name é obrigatório.',
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'Por favor, informe um endereço de e-mail válido.',
             'email.unique' => 'O endereço de e-mail informado já está sendo utilizado por outra pessoa!',

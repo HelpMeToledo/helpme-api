@@ -26,13 +26,13 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:3',
             'telefone' => 'required|size:11',
-            'nome' => 'required'
+            'name' => 'required'
         ];
     }
     public function messages(): array
     {
         return [
-            'nome.required' => 'O campo nome é obrigatório.',
+            'name.required' => 'O campo name é obrigatório.',
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'Por favor, informe um endereço de e-mail válido.',
             'email.unique' => 'O endereço de e-mail informado já está sendo utilizado por outra pessoa!',

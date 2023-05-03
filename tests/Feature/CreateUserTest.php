@@ -20,7 +20,7 @@ class CreateUserTest extends TestCase
         $data = User::factory()->make();
 
         $data = [
-            'nome' => "felipe silveira",
+            'name' => "felipe silveira",
             'telefone' => "18981317010",
             'cpf' => "00452188202",
             'email' => "felipe@example.com",

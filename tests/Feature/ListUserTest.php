@@ -19,7 +19,7 @@ class ListUserTest extends TestCase
         $response->assertJsonStructure([
             '*' => [
                 'id',
-                'nome',
+                'name',
                 'email',
                 'email_verified_at',
                 'password',

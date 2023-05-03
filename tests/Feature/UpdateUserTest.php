@@ -17,7 +17,7 @@ class UpdateUserTest extends TestCase
         $user = User::factory()->create();
         
         $response = $this->put('/api/usuarios/' . $user->id, [
-            "nome" => "Joao",
+            "name" => "Joao",
             "email" => "joao@teste.com",
             "cpf" => "11111111111",
             "telefone" => "12345678910",
@@ -27,7 +27,7 @@ class UpdateUserTest extends TestCase
         $response->assertStatus(200);
         
         $updatedUser = User::find($user->id);
-        $this->assertEquals('Joao', $updatedUser->nome);
+        $this->assertEquals('Joao', $updatedUser->name);
         $this->assertEquals('joao@teste.com', $updatedUser->email);
         $this->assertEquals('11111111111', $updatedUser->cpf);
     }

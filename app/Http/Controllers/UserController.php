@@ -58,7 +58,7 @@ class UserController extends Controller
             $user = $obj->create($input);
 
             $success['token'] =  $user->createToken('MyApp')->accessToken;
-            $success['nome'] =  $user->nome;
+            $success['name'] =  $user->name;
 
             response(['status' => true, 'data' => $success], 201)->send();
         } catch (Exception $e){
@@ -130,24 +130,18 @@ class UserController extends Controller
     public function destroy(User $usuario)
     {
         try {
-
             $usuario->delete();
-
-            return [
-                "status" => true,
-                "data" => $usuario
-            ];
-
-        } catch (Exception $e){
-
+    
+            return response(null, 204);
+    
+        } catch (Exception $e) {
             return [
                 "status" => false,
                 "error" => $e->getMessage()
             ];
-
         }
-        
     }
+    
 
     public function login(LoginRequest $request){
 

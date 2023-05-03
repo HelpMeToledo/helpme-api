@@ -5,15 +5,32 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Controllers\UserController;
+
 
 class DeleteUserTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    use RefreshDatabase;
+
+    public function testDeleteUser()
     {
-        $response = $this->delete('/api/usuarios');
-        $response->assertStatus(200);
+        // Cria um usuário para ser deletado
+        $user = User::factory()->create();
+
+        // Chama o método DELETE da API para deletar o usuário
+        $response = $this->delete('/api/usuarios/' . $user->id);
+
+        // Verifica se a resposta da API foi 204 (no content)
+        $response->assertNoContent();
+        $this->assertEmpty($response->getContent());
+
+        // Tenta buscar o usuário deletado no banco de dados
+        $deletedUser = User::find($user->id);
+
+        // Verifica se o usuário não foi encontrado (deve ser null)
+        $this->assertNull($deletedUser);
     }
 }
