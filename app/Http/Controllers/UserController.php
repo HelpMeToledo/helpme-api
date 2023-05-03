@@ -58,14 +58,9 @@ class UserController extends Controller
             $user = $obj->create($input);
 
             $success['token'] =  $user->createToken('MyApp')->accessToken;
-            $success['name'] =  $user->name;
+            $success['nome'] =  $user->nome;
 
-
-            return [
-                "status" => true,
-                'data' => $success
-            ];
-
+            response(['status' => true, 'data' => $success], 201)->send();
         } catch (Exception $e){
 
             return [
