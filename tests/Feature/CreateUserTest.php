@@ -1,42 +1,35 @@
 <?php
-
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use Illuminate\Http\Response;
 use App\Models\User;
-use App\Http\Controllers\UserController; 
 
 class CreateUserTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use WithFaker;
 
-    public function testStore()
+    public function testCreateUser()
     {
-        // Cria um modelo fake para usar nos testes
-        $data = User::factory()->make();
-
         $data = [
-            'name' => "felipe silveira",
-            'telefone' => "18981317010",
-            'cpf' => "00452188202",
-            'email' => "felipe@example.com",
-            'password' => "5599", 
+            'nome' => 'felipe7777',
+            'email' => 'felipe@loko3.com',
+            'password' => '5599',
+            'cpf' => '12345678901',
+            'telefone' => '11987654321'
         ];
 
-        // Simula a requisição de store com os dados do modelo
-        $response = $this->post(route('usuarios.store'), $data);
+        $response = $this->json('POST', '/api/usuarios', $data);
+        $response->assertStatus(Response::HTTP_OK);
 
-        
-        $response->assertSuccessful();
+        $user = User::where('email', 'felipe@loko3.com')->firstOrFail();
 
-        // Verifica se o modelo foi criado no banco de dados
-        $this->assertDatabaseHas('users', $data);
-
-        dd($response->getContent());
-
+        $this->assertEquals('felipe7777', $user->nome);
+        $this->assertEquals('felipe@loko3.com', $user->email);
+        $this->assertTrue(password_verify('5599', $user->password));
+        $this->assertEquals('12345678901', $user->cpf);
+        $this->assertEquals('11987654321', $user->telefone);
     }
 }

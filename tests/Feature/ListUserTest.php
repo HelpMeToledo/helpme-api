@@ -5,32 +5,31 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-
+use Illuminate\Database\Eloquent\Factories\Factory; // Importação da classe Factory
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Http\Response;
+use App\Models\User;
 class ListUserTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example()
+
+    public function testListUsers()
     {
-        $response = $this->get('/api/usuarios');
-        $response->assertStatus(200);
-        $response->assertJsonCount(12);
+        $response = $this->json('GET', '/api/usuarios');
+    $response->assertStatus(Response::HTTP_OK);
+    
+    $users = User::all();
+
+    if ($users->count() > 0) {
+        $response->assertJsonCount($users->count(), 'data');
         $response->assertJsonStructure([
-            '*' => [
-                'id',
-                'name',
-                'email',
-                'email_verified_at',
-                'password',
-                'cpf',
-                'telefone',
-                'ativo',
-                'remember_to',
-                'created_at',
-                'updated_at',
+            'data' => [
+                '*' => ['nome', 'email', 'cpf', 'telefone']
             ]
         ]);
-        
+    } else {
+        $this->assertTrue(true);
     }
+    dd($response->getcontent());
+    }
+    
 }

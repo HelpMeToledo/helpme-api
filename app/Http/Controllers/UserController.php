@@ -17,24 +17,13 @@ class UserController extends Controller
     public function index()
     {
         try {
-
-            $obj = new User();
-            $User = $obj->all();
-
-            return [
-                "status" => true,
-                'data' => $User
-            ];
-
+            $users = User::all();
+            return response()->json(['status' => true, 'data' => $users]);
         } catch (Exception $e) {
-
-            return [
-                "status" => false,
-                "error" => $e->getMessage(),
-            ];
+            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
         }
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -58,9 +47,14 @@ class UserController extends Controller
             $user = $obj->create($input);
 
             $success['token'] =  $user->createToken('MyApp')->accessToken;
-            $success['name'] =  $user->name;
+            $success['nome'] =  $user->nome;
 
-            response(['status' => true, 'data' => $success], 201)->send();
+
+            return [
+                "status" => true,
+                'data' => $success
+            ];
+
         } catch (Exception $e){
 
             return [
@@ -70,7 +64,6 @@ class UserController extends Controller
 
         }
     }
-
     /**
      * Display the specified resource.
      */
@@ -104,25 +97,27 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $usuario)
-    {
-        try {
-            $usuario->update($request->all());
+    public function update(UpdateUserRequest $request, $id)
+{
+    try {
+        $usuario = User::findOrFail($id);
+        $usuario->update($request->all());
 
-            return [
-                "status" => true,
-                "data" => $usuario
-            ];
+        return [
+            "status" => true,
+            "data" => $usuario
+        ];
 
-        } catch (Exception $e){
+    } catch (Exception $e){
 
-            return [
-                "status" => false,
-                "error" => $e->getMessage()
-            ];
-            
-        }
+        return [
+            "status" => false,
+            "error" => $e->getMessage()
+        ];
+        
     }
+}
+
        
     /**
      * Remove the specified resource from storage.

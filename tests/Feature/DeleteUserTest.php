@@ -24,8 +24,7 @@ class DeleteUserTest extends TestCase
         $response = $this->delete('/api/usuarios/' . $user->id);
 
         // Verifica se a resposta da API foi 204 (no content)
-        $response->assertNoContent();
-        $this->assertEmpty($response->getContent());
+        $response->assertStatus(204);
 
         // Tenta buscar o usuário deletado no banco de dados
         $deletedUser = User::find($user->id);

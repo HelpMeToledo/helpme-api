@@ -11,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     protected $fillable = [
-        'name', 'telefone' ,'cpf', 'email', 'password',
+        'nome', 'telefone' ,'cpf', 'email', 'password',
     ];
 
     /**
