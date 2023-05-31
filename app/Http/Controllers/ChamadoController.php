@@ -3,21 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chamado;
+use App\Models\Log;
 use App\Http\Requests\StoreChamadoRequest;
 use App\Http\Requests\UpdateChamadoRequest;
+use Illuminate\Http\Request;
 use Exception;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ChamadoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
 
             $obj = new Chamado();
             $chamados = $obj->all();
+
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "OK", $request);
 
             return [
                 "status" => true,
@@ -26,19 +32,15 @@ class ChamadoController extends Controller
 
         } catch (Exception $e) {
 
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "Erro", $request);
+
             return [
                 "status" => false,
                 "error" => $e->getMessage(),
             ];
         }
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -51,12 +53,18 @@ class ChamadoController extends Controller
             $obj = new Chamado();
             $chamado = $obj->create($request->all());
 
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "OK", $request);
+
             return [
                 'status' => 1,
                 'data' => $chamado
             ];
 
         } catch (Exception $e){
+
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "Erro", $request);
 
             return [
                 "status" => false,
@@ -69,9 +77,12 @@ class ChamadoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Chamado $chamado)
+    public function show(Chamado $chamado, Request $request)
     {
         try {
+
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "OK", $request);
 
             return [
                 "status" => true,
@@ -79,6 +90,9 @@ class ChamadoController extends Controller
             ];
 
         } catch (Exception $e){
+
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "Erro", $request);
 
             return [
                 "status" => false,
@@ -89,14 +103,6 @@ class ChamadoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Chamado $chamado)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateChamadoRequest $request, Chamado $chamado)
@@ -104,12 +110,18 @@ class ChamadoController extends Controller
         try {
             $chamado->update($request->all());
 
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "OK", $request);
+
             return [
                 "status" => true,
                 "data" => $chamado
             ];
 
         } catch (Exception $e){
+
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "Erro", $request);
 
             return [
                 "status" => false,
@@ -122,11 +134,14 @@ class ChamadoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Chamado $chamado)
+    public function destroy(Chamado $chamado, Request $request)
     {
         try {
 
             $chamado->delete();
+
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "OK", $request);
 
             return [
                 "status" => true,
@@ -135,11 +150,15 @@ class ChamadoController extends Controller
 
         } catch (Exception $e){
 
+            $log = new Log();
+            $log->criarLog(auth()->user()->id, "Erro", $request);
+
             return [
                 "status" => false,
                 "error" => $e->getMessage()
             ];
 
         }
+        
     }
 }
