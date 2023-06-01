@@ -22,7 +22,24 @@ class StoreChamadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "anexo" => "required",
+            "ativo" => "required",
+            "descricao" => "required",
+            "idDepartamento" => "required",
+            "idStatus" => "required",
+            "titulo" => "required"
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'anexo.required' => 'O campo anexo é obrigatório.',
+            'ativo.required' => 'O campo ativo é obrigatório.',
+            'descricao.required' => 'O campo descricao é obrigatório.',
+            'idDepartamento.required' => 'O campo idDepartamento é obrigatório.',
+            'idStatus.required' => 'O campo idStatus é obrigatório.',
+            'titulo.required' => 'O campo titulo é obrigatório.'
         ];
     }
 }
